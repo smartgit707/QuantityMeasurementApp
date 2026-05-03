@@ -1,44 +1,66 @@
 public class QuantityMeasurementApp {
 
-    // Inner class representing Feet
+    // ===== FEET CLASS =====
     static class Feet {
         private final double value;
 
-        // Constructor
         public Feet(double value) {
             this.value = value;
         }
 
-        // Override equals method
         @Override
         public boolean equals(Object obj) {
-            // Same reference
             if (this == obj) return true;
-
-            // Null or different class
             if (obj == null || getClass() != obj.getClass()) return false;
-
-            // Type casting
             Feet other = (Feet) obj;
-
-            // Compare values safely
             return Double.compare(this.value, other.value) == 0;
         }
     }
 
-    // Main method (acts like demo/testing)
+    // ===== INCH CLASS =====
+    static class Inch {
+        private final double value;
+
+        public Inch(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Inch other = (Inch) obj;
+            return Double.compare(this.value, other.value) == 0;
+        }
+    }
+
+    // ===== STATIC METHODS (as per UC2 requirement) =====
+    public static boolean compareFeet(double v1, double v2) {
+        Feet f1 = new Feet(v1);
+        Feet f2 = new Feet(v2);
+        return f1.equals(f2);
+    }
+
+    public static boolean compareInch(double v1, double v2) {
+        Inch i1 = new Inch(v1);
+        Inch i2 = new Inch(v2);
+        return i1.equals(i2);
+    }
+
+    // ===== MAIN METHOD =====
     public static void main(String[] args) {
 
-        Feet f1 = new Feet(1.0);
-        Feet f2 = new Feet(1.0);
-        Feet f3 = new Feet(2.0);
+        // Feet comparison
+        System.out.println("Feet 1.0 & 1.0: " + compareFeet(1.0, 1.0)); // true
+        System.out.println("Feet 1.0 & 2.0: " + compareFeet(1.0, 2.0)); // false
 
-        // Test cases
-        System.out.println("Test 1 (Same Value 1.0 & 1.0): " + f1.equals(f2)); // true
-        System.out.println("Test 2 (Different Value 1.0 & 2.0): " + f1.equals(f3)); // false
-        System.out.println("Test 3 (Null Comparison): " + f1.equals(null)); // false
-        System.out.println("Test 4 (Same Reference): " + f1.equals(f1)); // true
+        // Inch comparison
+        System.out.println("Inch 1.0 & 1.0: " + compareInch(1.0, 1.0)); // true
+        System.out.println("Inch 1.0 & 2.0: " + compareInch(1.0, 2.0)); // false
 
-        // Non-numeric case not applicable directly in Java (type safe)
+        // Edge cases
+        Feet f = new Feet(1.0);
+        System.out.println("Null check (Feet): " + f.equals(null)); // false
+        System.out.println("Same reference (Feet): " + f.equals(f)); // true
     }
 }
